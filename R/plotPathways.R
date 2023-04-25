@@ -21,7 +21,8 @@
 #' laml <- read.maf(maf = laml.maf)
 #' PlotOncogenicPathways(maf = laml, pathways = "RTK-RAS")
 PlotOncogenicPathways = function(maf, pathways = NULL, fullPathway = FALSE, pathdb = NULL,
-                                 removeNonMutated = TRUE, tsgCol = "red", ogCol = "royalblue", fontSize = 0.6, showTumorSampleBarcodes = FALSE, sampleOrder = NULL, SampleNamefontSize = 0.6){
+                                 removeNonMutated = TRUE, tsgCol = "red", ogCol = "royalblue", fontSize = 0.6, showTumorSampleBarcodes = FALSE, sampleOrder = NULL, SampleNamefontSize = 0.6,
+                                 nmax = 50){
 
 
   if(is.null(pathdb)){
@@ -72,6 +73,8 @@ PlotOncogenicPathways = function(maf, pathways = NULL, fullPathway = FALSE, path
     }
     nm = path_mat$numericMatrix
 
+    altered_genes <- nrow(nm)
+    
     if(fullPathway){
       genes.missing = genes[!genes %in% rownames(nm)]
       if(length(genes.missing) > 0){
@@ -80,6 +83,10 @@ PlotOncogenicPathways = function(maf, pathways = NULL, fullPathway = FALSE, path
         nm = rbind(nm, genes.missing.numat)
       }
     }
+    
+    full_pathway_length <- nrow(nm)
+    
+    nm <- nm[1:max(altered_genes,min(nmax,full_pathway_length)),];
 
     genes = rownames(nm)
 
