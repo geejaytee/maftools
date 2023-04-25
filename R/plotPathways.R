@@ -115,7 +115,7 @@ PlotOncogenicPathways = function(maf, pathways = NULL, fullPathway = FALSE, path
     }
 
     image(x = 1:nrow(nm), y = 1:ncol(nm), z = nm, axes = FALSE, xaxt="n", yaxt="n", xlab="", ylab="", col = "brown", ) #col = "#FC8D62"
-    abline(h = (1:ncol(nm)) + 0.5, col = "white")
+    abline(h = (1:ncol(nm)) + 0.5, col = "white", lwd = 0.05)
     abline(v = (1:nrow(nm)) + 0.5, col = "white")
     points(which(is.na(nm), arr.ind = TRUE), pch=".", col = "gray70")
     mtext(text = colnames(nm), side = 2, at = 1:ncol(nm), col = oncopath[colnames(nm), "color_code",],
